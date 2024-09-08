@@ -1,4 +1,5 @@
 
+import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 
 import Options from "./components/Options/Options";
@@ -26,11 +27,18 @@ export default function App() {
       bad: 0,
     });
   };
+  const positiveFeedback = Math.round((good / totalFeedback) * 100);
   return (
     <>
-      <Options updateFeedback={updateFeedback} reset={resetFeedback}></Options>
+      <Description></Description>
+      <Options updateFeedback={updateFeedback}
+        reset={resetFeedback}></Options>
 
-      <Feedback feedback={feedback} total={totalFeedback}></Feedback>
+      {totalFeedback === 0 ? (
+        <p>No feedback yet</p>
+      ) : (
+          <Feedback feedback={feedback} total={totalFeedback} positiveFeedback={positiveFeedback} />
+      )}
     </>
   );
 }
