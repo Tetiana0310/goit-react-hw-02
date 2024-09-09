@@ -1,4 +1,3 @@
-
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 
@@ -7,7 +6,7 @@ import { useState, useEffect } from "react";
 
 export default function App() {
   const [feedback, setFeedback] = useState(() => {
-    const savedFeedback = localStorage.getItem('feedback');
+    const savedFeedback = localStorage.getItem("feedback");
     if (savedFeedback !== null) {
       return JSON.parse(savedFeedback);
     }
@@ -15,13 +14,13 @@ export default function App() {
       good: 0,
       neutral: 0,
       bad: 0,
-    }
-  })
+    };
+  });
 
-   useEffect(() => {
-    localStorage.setItem('feedback', JSON.stringify(feedback));
-   }, [feedback]);
-  
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(feedback));
+  }, [feedback]);
+
   const updateFeedback = (feedbackType) => {
     setFeedback((prev) => ({
       ...prev,
@@ -42,13 +41,20 @@ export default function App() {
   return (
     <>
       <Description></Description>
-      <Options updateFeedback={updateFeedback}
-        reset={resetFeedback}></Options>
+      <Options
+        updateFeedback={updateFeedback}
+        reset={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
 
       {totalFeedback === 0 ? (
         <p>No feedback yet</p>
       ) : (
-          <Feedback feedback={feedback} total={totalFeedback} positiveFeedback={positiveFeedback} />
+        <Feedback
+          feedback={feedback}
+          total={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
       )}
     </>
   );
